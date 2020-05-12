@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace DotNetExamenJuni
 {
@@ -42,6 +43,14 @@ namespace DotNetExamenJuni
 
             //tip om de getoonde lijst te updaten.
             performListBox.Items.Refresh();
+        }
+
+        private void Open_MenuItem_Cick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string startFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            openFileDialog.InitialDirectory = startFolder;
+            openFileDialog.Filter = "*.txt";
         }
     }
 }

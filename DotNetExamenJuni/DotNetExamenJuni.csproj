@@ -57,6 +57,7 @@
     <Compile Include="NewActWindow.xaml.cs">
       <DependentUpon>NewActWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Performer.cs" />
     <Compile Include="Solo.cs" />
     <Compile Include="StageLineUpWindow.xaml.cs">
       <DependentUpon>StageLineUpWindow.xaml</DependentUpon>

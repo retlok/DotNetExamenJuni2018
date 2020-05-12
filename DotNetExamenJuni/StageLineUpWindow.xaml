@@ -6,12 +6,23 @@
         xmlns:local="clr-namespace:DotNetExamenJuni"
         mc:Ignorable="d"
         Title="Stage Line Up" Height="300" Width="312.121">
-    <Grid>
-        <TextBlock x:Name="stageTextBlock" Text="Stage" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="performListBox" HorizontalAlignment="Left" Height="172" Margin="22,56,0,0" VerticalAlignment="Top" Width="186"/>
-        <Button x:Name="addButton" Content="Add" Margin="219,69,9.6,0" VerticalAlignment="Top" 
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem x:Name="open_MenuItem" Header="Open" Click="Open_MenuItem_Cick" ></MenuItem>
+                <MenuItem Header="Save" ></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Exit"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <TextBlock x:Name="stageTextBlock" Text="Stage" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top"/>
+            <ListBox x:Name="performListBox" HorizontalAlignment="Left" Height="172" Margin="22,56,0,0" VerticalAlignment="Top" Width="186"/>
+            <Button x:Name="addButton" Content="Add" Margin="219,69,9.6,0" VerticalAlignment="Top" 
                     IsEnabled="False" />
-        <Button x:Name="removeButton" Content="Remove" HorizontalAlignment="Left" Margin="219,124,-0.4,0" VerticalAlignment="Top" Width="75" 
+            <Button x:Name="removeButton" Content="Remove" HorizontalAlignment="Left" Margin="219,124,-0.4,0" VerticalAlignment="Top" Width="75" 
                     IsEnabled="False" Click="RemoveButton_Click" />
-    </Grid>
+        </Grid>
+    </DockPanel>
+    
 </Window>
