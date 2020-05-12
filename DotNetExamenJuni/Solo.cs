@@ -12,7 +12,7 @@ namespace DotNetExamenJuni
 
         public string Type { get => _type; set => _type = value; }
 
-        public Solo(string type, string name, int reservationNumber, string startTime, string endTime, int[][] technicalSupplies, List<string> rider) 
+        public Solo(string type, string name, int reservationNumber, string startTime, string endTime, int[] technicalSupplies, List<string> rider) 
         {
             Name = name;
             ReservationNumber = reservationNumber;

@@ -12,7 +12,7 @@ namespace DotNetExamenJuni
 
         public int MemberCount { get => _memberCount; set => _memberCount = value; }
 
-        public Band(int memberCount, string name, int reservationNumber, string startTime, string endTime, int[][] technicalSupplies, List<string> rider)
+        public Band(int memberCount, string name, int reservationNumber, string startTime, string endTime, int[] technicalSupplies, List<string> rider)
         {
             Name = name;
             ReservationNumber = reservationNumber;

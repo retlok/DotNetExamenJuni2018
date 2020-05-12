@@ -20,6 +20,7 @@ namespace DotNetExamenJuni
     /// </summary>
     public partial class MainWindow : Window
     {
+        private StageLineUpWindow stageLineUpWindow = new StageLineUpWindow();
         public MainWindow()
         {
             InitializeComponent();
@@ -27,7 +28,8 @@ namespace DotNetExamenJuni
 
         private void ProgramButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException("staat hier code?");
+
+            stageLineUpWindow.ShowDialog();
         }
     }
 }
