@@ -24,33 +24,43 @@ namespace DotNetExamenJuni
     public partial class StageLineUpWindow : Window
     {
         private string filePath = "";
-        public StageLineUpWindow()
+        private List<Performer> performers = new List<Performer>();
+        private MainWindow mainWindow;
+        public StageLineUpWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            this.mainWindow = mainWindow;
+            Closing += Window_Closing;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            mainWindow.Show();
         }
 
         //TODO: zorg dat onderstaande code werkt, volgens richtlijnen opgave
         public void DisableEvents()
         {
-            throw new NotImplementedException("staat hier code?");
+            DisableEvents();
         }
 
         //TODO: zorg dat onderstaande code werkt, volgens richtlijnen opgave
         public void EnableEvents()
         {
-            throw new NotImplementedException("staat hier code?");
+            EnableEvents();
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO:hier het juist item verwijderen uit de lijst.
-
-            //tip om de getoonde lijst te updaten.
+            performListBox.Items.Remove(performListBox.SelectedItem);
             performListBox.Items.Refresh();
         }
 
         private void Open_MenuItem_Cick(object sender, RoutedEventArgs e)
         {
+            performListBox.Items.Clear();
+
+            performers.Clear();
             OpenFileDialog openFileDialog = new OpenFileDialog();
             string startFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             openFileDialog.InitialDirectory = startFolder;
@@ -59,12 +69,15 @@ namespace DotNetExamenJuni
             
             if (openFileDialog.ShowDialog() == true)
             {
+                char[] namesep = {'\\'};
                 filePath = openFileDialog.FileName;
+                stageTextBlock.Text = filePath.Split(namesep)[filePath.Split(namesep).Length - 1].Substring(0, filePath.Split(namesep)[filePath.Split(namesep).Length - 1].Length - 4);
                 StreamReader streamReader = File.OpenText(openFileDialog.FileName);
                 string line = streamReader.ReadLine();
-                List<Performer> performers = new List<Performer>();
+                
                 while (line != null)
                 {
+                    line.Trim();
                     char[] separator = { ',' };
                     string[] items = line.Split(separator);
                     if (items[0] == "B"){
@@ -101,19 +114,62 @@ namespace DotNetExamenJuni
                 addButton.IsEnabled = true;
                 removeButton.IsEnabled = true;
                 save_MenuItem.IsEnabled = true;
+                streamReader.Close();
             }
         }
 
         private void Save_MenuItem_Click(object sender, RoutedEventArgs e)
         {
             StreamWriter streamWriter = File.CreateText(filePath);
-
-            streamWriter.WriteLine();
+            for (int i = 0; i < performers.Count; i++)
+            {
+                if (performers[i] as Band != null)
+                {
+                    Band band = (Band) performers[i];
+                    string output = "B,";
+                    output += band.MemberCount;
+                    output += "," + band.Name;
+                    output += "," + band.ReservationNumber + ",";
+                    output += band.StartTime.ToString("hh\\:mm") + ",";
+                    output += band.EndTime.ToString("hh\\:mm") + ",";
+                    output += band.TechnicalSupplies[0] + ",";
+                    output += band.TechnicalSupplies[1];
+                    for (int j =0; j < band.Rider.Count; j++)
+                    {
+                        output += $",{band.Rider[j]}";
+                    }
+                    streamWriter.WriteLine(output);
+                }
+                else
+                {
+                    Solo solo = (Solo)performers[i];
+                    string output = "S,";
+                    output += solo.Type;
+                    output += "," + solo.Name;
+                    output += ", " + solo.ReservationNumber + ",";
+                    output += solo.StartTime.ToString("hh\\:mm") + ",";
+                    output += solo.EndTime.ToString("hh\\:mm") + ",";
+                    output += solo.TechnicalSupplies[0] + ",";
+                    output += solo.TechnicalSupplies[1];
+                    for (int j = 0; j < solo.Rider.Count; j++)
+                    {
+                        output += $",{solo.Rider[j]}";
+                    }
+                    streamWriter.WriteLine(output);
+                }
+            }
+            streamWriter.Close();
         }
 
         private void Exit_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewActWindow newActWindow = new NewActWindow(this);
+            newActWindow.ShowDialog();
         }
     }
 }

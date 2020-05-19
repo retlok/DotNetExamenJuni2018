@@ -19,9 +19,11 @@ namespace DotNetExamenJuni
     /// </summary>
     public partial class NewActWindow : Window
     {
-        public NewActWindow()
+        private StageLineUpWindow stageLine;
+        public NewActWindow(StageLineUpWindow window)
         {
             InitializeComponent();
+            stageLine = window;
         }
 
 

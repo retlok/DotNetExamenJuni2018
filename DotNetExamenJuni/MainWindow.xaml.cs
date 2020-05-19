@@ -20,16 +20,22 @@ namespace DotNetExamenJuni
     /// </summary>
     public partial class MainWindow : Window
     {
-        private StageLineUpWindow stageLineUpWindow = new StageLineUpWindow();
+        
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void ProgramButton_Click(object sender, RoutedEventArgs e)
         {
-
-            stageLineUpWindow.ShowDialog();
+            StageLineUpWindow stageLineUpWindow = new StageLineUpWindow(this); ;
+            stageLineUpWindow.Show();
+            
         }
+
+        
+
+        
     }
 }
