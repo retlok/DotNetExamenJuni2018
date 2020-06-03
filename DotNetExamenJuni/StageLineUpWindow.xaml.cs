@@ -26,11 +26,16 @@ namespace DotNetExamenJuni
         private string filePath = "";
         private List<Performer> performers = new List<Performer>();
         private MainWindow mainWindow;
+
+        public List<Performer> Performers { get => performers; set => performers = value; }
+
         public StageLineUpWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            
             this.mainWindow = mainWindow;
             Closing += Window_Closing;
+            performListBox.SelectionChanged += RemoveButton_Click;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -41,19 +46,29 @@ namespace DotNetExamenJuni
         //TODO: zorg dat onderstaande code werkt, volgens richtlijnen opgave
         public void DisableEvents()
         {
-            DisableEvents();
+            addButton.Click -= AddButton_Click;
+            removeButton.Click -= RemoveButton_Click;
+            exit_MenuItem.Click -= Exit_MenuItem_Click;
+            save_MenuItem.Click -= Save_MenuItem_Click;
+            open_MenuItem.Click -= Open_MenuItem_Cick;
+
         }
 
         //TODO: zorg dat onderstaande code werkt, volgens richtlijnen opgave
         public void EnableEvents()
         {
-            EnableEvents();
+            addButton.Click += AddButton_Click;
+            removeButton.Click += RemoveButton_Click;
+            exit_MenuItem.Click += Exit_MenuItem_Click;
+            save_MenuItem.Click += Save_MenuItem_Click;
+            open_MenuItem.Click += Open_MenuItem_Cick;
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             performListBox.Items.Remove(performListBox.SelectedItem);
             performListBox.Items.Refresh();
+            
         }
 
         private void Open_MenuItem_Cick(object sender, RoutedEventArgs e)
@@ -106,11 +121,12 @@ namespace DotNetExamenJuni
                     line = streamReader.ReadLine();
 
                 }
-                for (int i = 0; i < performers.Count; i++)
-                {
-                    performListBox.Items.Add(performers[i].ToString());
-                    
-                }
+                // for (int i = 0; i < performers.Count; i++)
+                //{
+                //    performListBox.Items.Add(performers[i].ToString());
+
+                //}
+                performListBox.ItemsSource = performers;
                 addButton.IsEnabled = true;
                 removeButton.IsEnabled = true;
                 save_MenuItem.IsEnabled = true;
@@ -168,8 +184,9 @@ namespace DotNetExamenJuni
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            DisableEvents();
             NewActWindow newActWindow = new NewActWindow(this);
-            newActWindow.ShowDialog();
+            newActWindow.Show();
         }
     }
 }

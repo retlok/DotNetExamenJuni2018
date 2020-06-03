@@ -30,7 +30,7 @@ namespace DotNetExamenJuni
         private void ProgramButton_Click(object sender, RoutedEventArgs e)
         {
             StageLineUpWindow stageLineUpWindow = new StageLineUpWindow(this); ;
-            stageLineUpWindow.Show();
+            stageLineUpWindow.ShowDialog();
             
         }
 

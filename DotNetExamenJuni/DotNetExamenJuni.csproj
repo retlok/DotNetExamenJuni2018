@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FestivalException.cs" />
     <Compile Include="NewActWindow.xaml.cs">
       <DependentUpon>NewActWindow.xaml</DependentUpon>
     </Compile>
